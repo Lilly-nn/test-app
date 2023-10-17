@@ -17,13 +17,22 @@ import * as path from "path";
         }),
         SequelizeModule.forRoot({
             dialect: 'postgres',
+            uri: process.env.POSTGRES_URI,
             host: process.env.POSTGRES_HOST,
             port: Number(process.env.POSTGRES_PORT),
             username: process.env.POSTGRES_USERNAME,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
             models: [User, Deal],
-            autoLoadModels: true
+            autoLoadModels: true,
+            dialectOptions: {
+                ssl: {
+                    require: true,
+                    rejectUnauthorized: false,
+                    native: true
+                },
+            },
+
         }),
         ServeStaticModule.forRoot({
             rootPath: path.resolve(__dirname, "static"),
