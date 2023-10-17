@@ -7,6 +7,7 @@ interface DealObj {
     currency: string;
     daysLeft: number;
     percentsSold: number;
+    image?: string;
 }
 
 
@@ -33,4 +34,7 @@ export class Deal extends Model<Deal, DealObj> {
 
     @Column({ type: DataType.INTEGER, allowNull: false })
     percentsSold: number;
+
+    @Column({ type: DataType.STRING, allowNull: true })
+    image: string;
 }

@@ -6,6 +6,9 @@ import { UserModule } from './user/user.module';
 import { User } from './user/user.model';
 import { AuthorizeModule } from './authorize/authorize.module';
 import { Deal } from './deals/deals.model';
+import { FilesModule } from './files/files.module';
+import { ServeStaticModule } from '@nestjs/serve-static';
+import * as path from "path";
 
 @Module({
     imports: [
@@ -22,9 +25,13 @@ import { Deal } from './deals/deals.model';
             models: [User, Deal],
             autoLoadModels: true
         }),
+        ServeStaticModule.forRoot({
+            rootPath: path.resolve(__dirname, "static"),
+        }),
         DealsModule,
         UserModule,
         AuthorizeModule,
+        FilesModule,
     ],
     controllers: [],
     providers: [],
