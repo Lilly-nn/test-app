@@ -3,12 +3,14 @@ import { AuthorizeService } from './authorize.service';
 import { AuthorizeController } from './authorize.controller';
 import { UserModule } from 'src/user/user.module';
 import { JwtModule } from '@nestjs/jwt';
+import { DealsModule } from 'src/deals/deals.module';
 
 @Module({
   providers: [AuthorizeService],
   controllers: [AuthorizeController],
   imports: [
-    forwardRef(() => UserModule),
+    UserModule,
+    forwardRef(() => DealsModule),
     JwtModule.register({
       secret: `${process.env.PRIVATE_KEY}`,
       signOptions: {

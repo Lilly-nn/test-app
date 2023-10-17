@@ -1,7 +1,6 @@
 import { Body, Controller, Get, Param, Post, UseGuards } from '@nestjs/common';
 import { UserService } from './user.service';
 import { UserDto } from './user.dto';
-import { AuthGuard } from 'src/authorize/auth.guard';
 
 @Controller('users')
 export class UserController {
@@ -10,12 +9,6 @@ export class UserController {
     @Get('/:id')
     getUserById(@Param('id') id: string) {
         return this.userService.getById(id)
-    }
-
-    @Get()
-    @UseGuards(AuthGuard)
-    getAll() {
-        return this.userService.getAll()
     }
 
     @Post()

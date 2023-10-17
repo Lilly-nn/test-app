@@ -12,11 +12,6 @@ export class UserService {
         return user;
     }
 
-    async getAll() {
-        const user = await this.userSchema.findAll();
-        return user;
-    }
-
     async getById(id: string) {
         const user = await this.userSchema.findOne({ where: { id } });
         return user;

@@ -5,6 +5,7 @@ import { ConfigModule } from '@nestjs/config';
 import { UserModule } from './user/user.module';
 import { User } from './user/user.model';
 import { AuthorizeModule } from './authorize/authorize.module';
+import { Deal } from './deals/deals.model';
 
 @Module({
     imports: [
@@ -18,7 +19,7 @@ import { AuthorizeModule } from './authorize/authorize.module';
             username: process.env.POSTGRES_USERNAME,
             password: process.env.POSTGRES_PASSWORD,
             database: process.env.POSTGRES_DB,
-            models: [User],
+            models: [User, Deal],
             autoLoadModels: true
         }),
         DealsModule,
