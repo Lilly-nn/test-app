@@ -76,7 +76,7 @@ export default function DealCard(props: Deal) {
       style={{
         backgroundImage: image
           ? `url(${process.env.REACT_APP_API_URL}/${image})`
-          : `url(https://cf.bstatic.com/xdata/images/hotel/max1024x768/233948664.jpg?k=66b849ba4cf12112b4d8af740feb88d8087a503c86e0f7a447ba750a1452cf94&o=&hp=1)`,
+          : `url(https://www.pulsecarshalton.co.uk/wp-content/uploads/2016/08/jk-placeholder-image.jpg)`,
       }}
     >
       <Info>
