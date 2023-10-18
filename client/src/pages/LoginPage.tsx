@@ -1,5 +1,6 @@
 import styled from "styled-components";
 import bg from "../assets/login-bg.jpg";
+import LogIn from "../components/LogIn";
 
 const LoginSection = styled.section`
   height: 100vh;
@@ -64,6 +65,12 @@ const Input = styled.input`
   }
 `;
 
+const ValidationError = styled.p`
+  font-size: 14px;
+  color: red;
+  margin-top: 5px;
+`;
+
 const Image = styled.img`
   width: 100%;
   object-fit: cover;
@@ -89,7 +96,7 @@ const LinkSection = styled.p`
   margin-top: 10px;
 `;
 
-const SignLink = styled.a`
+const SignLink = styled.button`
   color: #b29f7e;
   font-weight: 600;
   line-height: 22px;
@@ -105,7 +112,9 @@ export default function LoginPage({ children }: any) {
       <ImageBackground>
         <Image src={bg} alt="background image" />
       </ImageBackground>
-      <Layer>{children}</Layer>
+      <Layer>
+        <LogIn />
+      </Layer>
     </LoginSection>
   );
 }
@@ -116,6 +125,7 @@ export {
   Form,
   Input,
   Label,
+  ValidationError,
   ForgotLink,
   LinkSection,
   SignLink,

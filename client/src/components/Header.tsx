@@ -1,6 +1,6 @@
 import styled from "styled-components";
 import Button from "./Button";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const Header = styled.header`
   background-color: #172234;
@@ -30,16 +30,15 @@ const BtnContainer = styled.div`
 `;
 
 export default function HeaderBar() {
+  const navigate = useNavigate();
   return (
     <Header>
       <Logo href="/">Logo</Logo>
       <BtnContainer>
-        <Link to="/sign-in">
-          <Button outlined>Log in</Button>
-        </Link>
-        <Link to="/sign-up">
-          <Button>Sign Up</Button>
-        </Link>
+        <Button onClick={() => navigate("/login")} outlined>
+          Log in
+        </Button>
+        <Button onClick={() => navigate("/login")}>Sign Up</Button>
       </BtnContainer>
     </Header>
   );

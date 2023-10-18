@@ -63,7 +63,7 @@ export default function HomePage() {
           field reflects the beam, while the mass defect is not formed. The
           chemical compound is negatively charged. Twhile the mass defect is
         </Text>
-        <Link to="/open-deals">
+        <Link to="/login">
           <Button>get started</Button>
         </Link>
       </Wrapper>

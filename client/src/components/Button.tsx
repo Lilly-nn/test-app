@@ -19,6 +19,10 @@ export const Btn = styled.button<{ $outlined?: boolean }>`
   }
 `;
 
-export default function Button({ children, outlined = false }: any) {
-  return <Btn $outlined={outlined}>{children}</Btn>;
+export default function Button({ children, outlined = false, onClick }: any) {
+  return (
+    <Btn onClick={onClick} $outlined={outlined}>
+      {children}
+    </Btn>
+  );
 }
