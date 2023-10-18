@@ -1,4 +1,11 @@
 import { useState } from "react";
+import { Toaster, toast } from "react-hot-toast";
+import { useDispatch } from "react-redux";
+import {
+  setSignIn,
+  setSignUp,
+} from "../context/features/current-page/currentPageSlice";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 import {
   Container,
   ForgotLink,
@@ -10,20 +17,18 @@ import {
   Title,
   ValidationError,
 } from "../pages/LoginPage";
-import { authSchema } from "../validation/validationSchema";
+import { login } from "../utils/signIn";
 import Button from "./Button";
-import axios from "../axios.config";
-import { getErrorMessage } from "../utils/getApiError";
-import { Toaster, toast } from "react-hot-toast";
-
-type LoginPage = "Sign in" | "Sign up";
+import { useNavigate } from "react-router-dom";
 
 export default function LogIn() {
-  const [currentPage, setCurrentPage] = useState<LoginPage>("Sign in");
+  const { currentPage } = useTypedSelector((state) => state.currentPage);
   const [formData, setFormData] = useState({
     email: "",
     password: "",
   });
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
 
   function onChange(e: React.ChangeEvent<HTMLInputElement>) {
     setFormData({
@@ -32,24 +37,36 @@ export default function LogIn() {
     });
   }
 
-  async function signUp() {
-    try {
-      const validationPassed = authSchema.safeParse(formData);
-      if (!validationPassed.success) {
-        alert("Email or password is not valid");
-        return;
-      }
-      const res = await axios.post("/auth/register", formData);
-      console.log(res.data);
-      toast.success("Successfully registered!");
-    } catch (err) {
-      toast.error(getErrorMessage(err));
-    }
+  function resetForm() {
+    setFormData({
+      email: "",
+      password: "",
+    });
   }
 
   async function handleSubmit(e: React.FormEvent<HTMLFormElement>) {
     e.preventDefault();
-    await signUp();
+    if (currentPage === "Sign up") {
+      await login({
+        method: "register",
+        formData,
+        resetForm,
+        dispatch,
+        toast,
+        toastMessage: "Successfully registered!",
+        navigate,
+      });
+    } else {
+      await login({
+        method: "login",
+        formData,
+        resetForm,
+        dispatch,
+        toast,
+        toastMessage: "You are signed in",
+        navigate,
+      });
+    }
   }
 
   return (
@@ -98,13 +115,15 @@ export default function LogIn() {
           : "Don't have an account?"}
         <SignLink
           onClick={() =>
-            setCurrentPage(currentPage === "Sign up" ? "Sign in" : "Sign up")
+            currentPage === "Sign in"
+              ? dispatch(setSignUp()) && resetForm()
+              : dispatch(setSignIn()) && resetForm()
           }
         >
           {currentPage === "Sign up" ? "Sign In" : "Sign Up"}
         </SignLink>
-        <Toaster position="bottom-center" reverseOrder={false} />
       </LinkSection>
+      <Toaster position="bottom-center" />
     </Container>
   );
 }

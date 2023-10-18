@@ -1,6 +1,13 @@
+import { useNavigate } from "react-router-dom";
 import styled from "styled-components";
 import Button from "./Button";
-import { Link, useNavigate } from "react-router-dom";
+import { useTypedSelector } from "../hooks/useTypedSelector";
+import { useDispatch } from "react-redux";
+import {
+  setSignIn,
+  setSignUp,
+} from "../context/features/current-page/currentPageSlice";
+import { signOut } from "../context/features/authorize/authorizeSlice";
 
 const Header = styled.header`
   background-color: #172234;
@@ -8,20 +15,11 @@ const Header = styled.header`
   color: white;
   font-family: "Merriweather", serif;
   display: flex;
-  justify-content: space-between;
+  justify-content: flex-end;
   align-items: center;
   position: fixed;
   width: 100%;
   z-index: 10;
-`;
-
-const Logo = styled.a`
-  color: #fff;
-  font-family: Merriweather;
-  font-size: 28px;
-  text-decoration: none;
-  font-weight: 400;
-  border: none;
 `;
 
 const BtnContainer = styled.div`
@@ -31,14 +29,47 @@ const BtnContainer = styled.div`
 
 export default function HeaderBar() {
   const navigate = useNavigate();
+  const { isAuthorized } = useTypedSelector((state) => state.authorize);
+  const dispatch = useDispatch();
+
+  function redirectToLogin() {
+    navigate("/login");
+  }
+
   return (
     <Header>
-      <Logo href="/">Logo</Logo>
       <BtnContainer>
-        <Button onClick={() => navigate("/login")} outlined>
-          Log in
-        </Button>
-        <Button onClick={() => navigate("/login")}>Sign Up</Button>
+        {isAuthorized ? (
+          <Button
+            onClick={() => {
+              redirectToLogin();
+              dispatch(signOut());
+            }}
+            outlined
+          >
+            Sign Out
+          </Button>
+        ) : (
+          <>
+            <Button
+              onClick={() => {
+                redirectToLogin();
+                dispatch(setSignIn());
+              }}
+              outlined
+            >
+              Log in
+            </Button>
+            <Button
+              onClick={() => {
+                redirectToLogin();
+                dispatch(setSignUp());
+              }}
+            >
+              Sign Up
+            </Button>
+          </>
+        )}
       </BtnContainer>
     </Header>
   );

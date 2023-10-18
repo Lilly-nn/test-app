@@ -101,6 +101,7 @@ const SignLink = styled.button`
   font-weight: 600;
   line-height: 22px;
   cursor: pointer;
+  margin-left: 5px;
   &:hover {
     text-decoration: underline;
   }
