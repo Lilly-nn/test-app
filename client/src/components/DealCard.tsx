@@ -1,14 +1,15 @@
 import styled from "styled-components";
+import { Deal } from "../types/types";
+import { calculatePercent } from "../utils/calculation";
 
 const ImageContainer = styled.div`
-  background-image: url("https://assets-global.website-files.com/63bd7443c5c4c66606ad6362/6474519fd04fa8c953602c60_Untitled%20design%20(1).jpg");
   background-repeat: no-repeat;
   max-width: 630px;
   min-width: 630px;
   height: 400px;
-  background-size: 100%;
   position: relative;
-  background-size: auto 100%;
+  background-size: auto;
+  background-position: center;
   @media (max-width: 1340px) {
     min-width: 500px;
   }
@@ -59,22 +60,42 @@ const InfoItem = styled.p`
   font-weight: 700;
 `;
 
-export default function DealCard() {
+export default function DealCard(props: Deal) {
+  const {
+    title,
+    currency,
+    depositSum,
+    image,
+    totalSum,
+    daysLeft,
+    percentsSold,
+  } = props;
+  const yieldPercent = calculatePercent(totalSum, depositSum);
   return (
-    <ImageContainer>
+    <ImageContainer
+      style={{
+        backgroundImage: image
+          ? `url(${process.env.REACT_APP_API_URL}/${image})`
+          : `url(https://cf.bstatic.com/xdata/images/hotel/max1024x768/233948664.jpg?k=66b849ba4cf12112b4d8af740feb88d8087a503c86e0f7a447ba750a1452cf94&o=&hp=1)`,
+      }}
+    >
       <Info>
-        <Title>The marina torch</Title>
+        <Title>{title}</Title>
         <InfoContainer>
           <InfoDetails>
-            <InfoItem>6 500 000 Dhs</InfoItem>
-            <InfoItem>Tiket - 60 000 Dhs</InfoItem>
+            <InfoItem>
+              {totalSum} {currency}
+            </InfoItem>
+            <InfoItem>
+              Tiket - {depositSum} {currency}
+            </InfoItem>
           </InfoDetails>
           <InfoDetails>
-            <InfoItem>Yield 9.25%</InfoItem>
-            <InfoItem>Days left 150</InfoItem>
+            <InfoItem>Yield {yieldPercent.toString().slice(0, 2)}%</InfoItem>
+            <InfoItem>Days left {daysLeft}</InfoItem>
           </InfoDetails>
           <InfoDetails>
-            <InfoItem>Sold 75%</InfoItem>
+            <InfoItem>Sold {percentsSold}%</InfoItem>
           </InfoDetails>
         </InfoContainer>
       </Info>

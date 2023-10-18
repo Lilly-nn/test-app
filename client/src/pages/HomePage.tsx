@@ -12,9 +12,14 @@ const HomeSection = styled.section`
   display: flex;
   align-items: center;
   justify-content: center;
-  &::before {
-    opacity: 0.6;
-    background: #172234;
+  &::after {
+    content: "";
+    background: rgb(23 34 52 / 60%);
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
   }
 `;
 
@@ -23,6 +28,8 @@ const Wrapper = styled.div`
   width: 80%;
   color: #fff;
   margin-top: 80px;
+  position: absolute;
+  z-index: 5;
 `;
 
 const Title = styled.h2`

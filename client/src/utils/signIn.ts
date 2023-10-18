@@ -34,6 +34,7 @@ export async function login({ method, formData, resetForm, dispatch, toast, toas
         resetForm();
         navigate('/open-deals')
     } catch (err) {
-        toast.error(getErrorMessage(err));
+        const { message } = getErrorMessage(err)
+        toast.error(message);
     }
 }
