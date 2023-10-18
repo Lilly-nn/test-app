@@ -2,13 +2,13 @@ import styled from "styled-components";
 import mainBg from "../assets/main-bg.png";
 import { Link } from "react-router-dom";
 import { Btn } from "../components/Button";
+import { useTypedSelector } from "../hooks/useTypedSelector";
 
 const HomeSection = styled.section`
   background-image: url(${mainBg});
   background-repeat: no-repeat;
   height: 100vh;
-  background-size: 100%;
-  object-fit: contain;
+  background-size: cover;
   display: flex;
   align-items: center;
   justify-content: center;
@@ -32,6 +32,22 @@ const Title = styled.h2`
   font-weight: 700;
   margin-bottom: 10px;
   white-space: nowrap;
+  @media (max-width: 1200px) {
+    font-size: 50px;
+  }
+  @media (max-width: 930px) {
+    font-size: 42px;
+  }
+  @media (max-width: 785px) {
+    font-size: 35px;
+  }
+  @media (max-width: 650px) {
+    font-size: 28px;
+    white-space: unset;
+  }
+  @media (max-width: 380px) {
+    font-size: 26px;
+  }
 `;
 const Text = styled.p`
   font-family: Lato;
@@ -43,6 +59,21 @@ const Text = styled.p`
   width: 68%;
   margin-left: auto;
   margin-right: auto;
+  @media (max-width: 1200px) {
+    font-size: 22px;
+  }
+  @media (max-width: 930px) {
+    font-size: 20px;
+  }
+  @media (max-width: 785px) {
+    font-size: 18px;
+  }
+  @media (max-width: 650px) {
+    font-size: 16px;
+  }
+  @media (max-width: 380px) {
+    font-size: 15px;
+  }
 `;
 
 const Button = styled(Btn)`
@@ -51,9 +82,13 @@ const Button = styled(Btn)`
   &:hover {
     transform: scale(1.05);
   }
+  @media (max-width: 785px) {
+    padding: 11px 23px;
+  }
 `;
 
 export default function HomePage() {
+  const { isAuthorized } = useTypedSelector((state) => state.authorize);
   return (
     <HomeSection>
       <Wrapper>
@@ -63,7 +98,7 @@ export default function HomePage() {
           field reflects the beam, while the mass defect is not formed. The
           chemical compound is negatively charged. Twhile the mass defect is
         </Text>
-        <Link to="/login">
+        <Link to={isAuthorized ? "/open-deals" : "/login"}>
           <Button>get started</Button>
         </Link>
       </Wrapper>

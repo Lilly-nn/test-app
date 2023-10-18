@@ -20,6 +20,9 @@ const Header = styled.header`
   position: fixed;
   width: 100%;
   z-index: 10;
+  @media (max-width: 650px) {
+    padding: 15px;
+  }
 `;
 
 const BtnContainer = styled.div`

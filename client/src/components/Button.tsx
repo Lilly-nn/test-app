@@ -17,6 +17,9 @@ export const Btn = styled.button<{ $outlined?: boolean }>`
   &:hover {
     transform: scale(0.9);
   }
+  @media (max-width: 785px) {
+    padding: 11px 23px;
+  }
 `;
 
 export default function Button({ children, outlined = false, onClick }: any) {

@@ -9,6 +9,21 @@ const ImageContainer = styled.div`
   background-size: 100%;
   position: relative;
   background-size: auto 100%;
+  @media (max-width: 1340px) {
+    min-width: 500px;
+  }
+  @media (max-width: 570px) {
+    min-width: 450px;
+    height: 300px;
+  }
+  @media (max-width: 460px) {
+    min-width: 380px;
+    height: 220px;
+  }
+  @media (max-width: 460px) {
+    min-width: 320px;
+    height: 220px;
+  }
 `;
 
 const Info = styled.div`

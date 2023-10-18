@@ -11,6 +11,12 @@ const LoginSection = styled.section`
 const ImageBackground = styled.div`
   width: 60%;
   height: 100vh;
+  @media (max-width: 950px) {
+    width: 45%;
+  }
+  @media (max-width: 715px) {
+    display: none;
+  }
 `;
 
 const Layer = styled.div`
@@ -20,9 +26,20 @@ const Layer = styled.div`
   display: flex;
   justify-content: center;
   align-items: center;
+  @media (max-width: 950px) {
+    width: 55%;
+  }
+  @media (max-width: 715px) {
+    width: 100%;
+    margin-top: 70px;
+  }
 `;
+
 const Container = styled.div`
   width: 350px;
+  @media (max-width: 380px) {
+    width: 290px;
+  }
 `;
 
 const Title = styled.h6`
